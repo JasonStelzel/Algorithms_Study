@@ -1,1 +1,3 @@
 # Algorithms_Study
+
+An Xcode/Swift Playground study of various algorithms showing how they are (sometimes uniquely) implemented within Swift and descriptions of how they work with extensive comments.  Simply enable each block of code as a whole (some parts are double commented out so the proper parts will remain commented out if you simply select the entire code block with all comments and hit "Command-/" to enable and then mouse over the line numbers until a play icon shows up which will allow you to run that particuar code block.)  Select the entire code block and comment it out again before moving on to the next example.
