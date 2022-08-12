@@ -91,12 +91,7 @@
 
 
 // GRID_TRAVELER WITH MEMOIZATION SOLUTION
-//// This solution breaks up the code into two similarly-named functions with different signatures because if you use the "inout" modifier in Swift to pass a dictionary by reference, you cannot have a default value for a non-supplied dictionary argument (as you start this call without a dictionary and it is normally instantiated as needed by the gridTravelerMemo function itself in other languages). Mark any references to the dictionary with the address symbol "&" to indicate that a pointer to the one and only &memo dictionary object will be addressed by reference (and not as a copy of whatever is passed in). Also, the function declaration marks this memo parameter with "inout" right before the type to show that it expects it to be passed into and back out of the function by reference. Then, when the 2-parameter version of the gridTravelerMemo function is called with just a pair of Ints to start (because that's the version of the function whose signature matches the calling function's argument list with only the 2 Ints), a memo dictionary will be generated inside of it so that when its return iteratively calls the 3-parameter version of this function that is declared with 3 parameters instead of 2, it will include the necessary 3rd argument -- a memo dictionary, in the return statement's function call. After that point, all subsequent calls will then have 3 arguments so they will automatically use the 3-parameter version of the function that requires 3 arguments because the memo dictionary will continue to exist between recursive calls of that function.
-
-func gridTravelerMemo (m: Int, n: Int) -> Int { // this function only takes 2 arguments -- a pair of Ints
-    var memo = [String:Int]() // this overloaded function (with a signature of only 2 Ints) will be called the first time and will create and inject the necessary memo dictionary object into the gridTravelerMemo call in this return and subsequently in the 2nd version of gridTravelerMemo for all subsequent calls.
-    return gridTravelerMemo(m: m, n: n, memo: &memo)
-}
+//// This alternative solution manually instantiates an empty memo dictionary to start and uses it in the call to a single 3-parameter version of gridTravelerMemo. By instantiating the memo object in advance, we avoid the issues with Swift's inability to handle a passed in null object by reference.
 
 func gridTravelerMemo (m: Int, n: Int, memo: inout [String:Int]) -> Int { // this function takes 3 arguments
     let key = m.description + "," + n.description
@@ -108,4 +103,10 @@ func gridTravelerMemo (m: Int, n: Int, memo: inout [String:Int]) -> Int { // thi
     return memo[key]!
 }
 
-print (gridTravelerMemo(m: 3, n: 4)) // this line calls the overloaded 2-parameter version of the gridTravelerMemo function because it only needs 2 of the 3 available parameters and this version of gridTravelerMemo will fill in the necessary memo object when it makes its first iterative call to the 3-parameter version of gridTravelerMemo as part of its return statement. Then this memo object will be used for all subsequent iterations which will then be fired from the 3-parameter version of gridTravelerMemo from here on out (the 2-parameter version will only be used that one time).
+var memo = [String:Int]()
+print (gridTravelerMemo(m: 3, n: 4, memo: &memo)) // because we are using a 3-parameter version of the gridTravelerMemo function to start, there's no need for an overloaded version using only 2 arguments but we have unfortunately exported some of the internal workings of the gridTravelerMemo function (i.e. the need for a memo dictionary) to the call site.
+
+
+
+
+
