@@ -90,21 +90,21 @@
 
 
 
-// GRID_TRAVELER WITH MEMOIZATION SOLUTION
-//// This alternative solution manually instantiates an empty memo dictionary to start and uses it in the call to a single 3-parameter version of gridTravelerMemo. By instantiating the memo object in advance, we avoid the issues with Swift's inability to handle a passed in null object by reference.
-
-func gridTravelerMemo (m: Int, n: Int, memo: inout [String:Int]) -> Int { // this function takes 3 arguments
-    let key = m.description + "," + n.description
-    if memo.keys.contains(key){return memo[key]!}
-    if (m == 1 && n == 1) {print("End chain final square, this direction..."); return 1}
-    if (m == 0 || n == 0) {print("No valid squares, this direction..."); return 0}
-    memo[key] = gridTravelerMemo(m: m-1, n: n, memo: &memo) + gridTravelerMemo(m: m, n: n-1, memo: &memo)
-//    print(key) // enable to show progression of recursion
-    return memo[key]!
-}
-
-var memo = [String:Int]()
-print (gridTravelerMemo(m: 3, n: 4, memo: &memo)) // because we are using a 3-parameter version of the gridTravelerMemo function to start, there's no need for an overloaded version using only 2 arguments but we have unfortunately exported some of the internal workings of the gridTravelerMemo function (i.e. the need for a memo dictionary) to the call site.
+//// GRID_TRAVELER WITH MEMOIZATION SOLUTION
+////// This alternative solution manually instantiates an empty memo dictionary to start and uses it in the call to a single 3-parameter version of gridTravelerMemo. By instantiating the memo object in advance, we avoid the issues with Swift's inability to handle a passed in null object by reference.
+//
+//func gridTravelerMemo (m: Int, n: Int, memo: inout [String:Int]) -> Int { // this function takes 3 arguments
+//    let key = m.description + "," + n.description
+//    if memo.keys.contains(key){return memo[key]!}
+//    if (m == 1 && n == 1) {print("End chain final square, this direction..."); return 1}
+//    if (m == 0 || n == 0) {print("No valid squares, this direction..."); return 0}
+//    memo[key] = gridTravelerMemo(m: m-1, n: n, memo: &memo) + gridTravelerMemo(m: m, n: n-1, memo: &memo)
+////    print(key) // enable to show progression of recursion
+//    return memo[key]!
+//}
+//
+//var memo = [String:Int]()
+//print (gridTravelerMemo(m: 3, n: 4, memo: &memo)) // because we are using a 3-parameter version of the gridTravelerMemo function to start, there's no need for an overloaded version using only 2 arguments but we have unfortunately exported some of the internal workings of the gridTravelerMemo function (i.e. the need for a memo dictionary) to the call site.
 
 
 
