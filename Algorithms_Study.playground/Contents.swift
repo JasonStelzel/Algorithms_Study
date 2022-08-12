@@ -61,3 +61,32 @@
 
 
 
+// GRID_TRAVELER is about counting your options to move around in a matrix.
+// It's like a Chess board with just "Right"(R) or "Down"(D) toward the goal.
+// To start with, our reference example will use a much smaller 2 x 3 grid.
+// U are the treasure hunter (upper left) and X marks the spot (lower right)!
+// The goal is to determine how many paths exist between the upper left(U) and the lower right(X).
+// In this little ASCII 2 x 3 grid below, there are 3 paths starting from U, moving to X:
+//
+//    ?     Right-Right-Down,  R-D-R,    D-R-R
+// |U| | |       |U|>|>|      |U|>| |   |U| | |
+// | | |X|       | | |\|      | |\|>|   |\|>|>|
+//
+// It has O(2^n+m) time complexity and O(n+m) space complexity
+// It's easy to see how the number of paths would multiply with more squares
+// You can experiment by changing the values of m and n in the print statement below
+
+func gridTraveler (m: Int, n: Int) -> Int {
+    if (m == 1 && n == 1) {return 1} // shuts off recursion
+    if (m <= 0 || n <= 0) {return 0} // error check
+        return gridTraveler(m: m-1, n: n) + gridTraveler(m: m, n: n-1)
+}
+
+print (gridTraveler(m: 2, n: 3))
+print (gridTraveler(m: 4, n: 6)) // these first two should complete very quickly
+//print (gridTraveler(m: 10, n: 12)) // this one will complete but it may take a while
+
+
+
+
+
